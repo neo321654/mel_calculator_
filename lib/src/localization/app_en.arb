@@ -1,0 +1,6 @@
+{
+  "appTitle": "MEL calculator",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
