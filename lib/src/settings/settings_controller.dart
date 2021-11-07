@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'settings_service.dart';
 
@@ -21,21 +22,29 @@ class SettingsController with ChangeNotifier {
   // Allow Widgets to read the user's preferred ThemeMode.
   ThemeMode get themeMode => _themeMode;
 
+  late Future<SharedPreferences> _prefs;
+
+  // Allow Widgets to read the user's preferred ThemeMode.
+  Future<SharedPreferences> get prefs => _prefs;
+
   /// Load the user's settings from the SettingsService. It may load from a
   /// local database or the internet. The controller only knows it can load the
   /// settings from the service.
   Future<void> loadSettings() async {
     _themeMode = await _settingsService.themeMode();
+    _prefs =  _settingsService.getPref();
 
     // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
-  Future<void> updateSettings(category, val) async {
+  Future<void> updateCategoryDelay(category, val) async {
     _settingsService.updateSettings(category, val);
 
     // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
+
+
 
 
 

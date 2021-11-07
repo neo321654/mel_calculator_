@@ -23,31 +23,7 @@ class MainScreen extends StatefulWidget {
 enum TimeType { t12, t24 }
 
 class _MainScreenState extends State<MainScreen> {
-
-    // var theme = ThemeData.dark().copyWith(
-    //   radioTheme: ThemeData.dark().radioTheme.copyWith(
-    //     fillColor: MaterialStateProperty.resolveWith((states) {
-    //       if (!states.contains(MaterialState.disabled)) {
-    //         return Colors.blue;
-    //       } else {
-    //         return Colors.blue.withOpacity(.25);
-    //       }
-    //     }),
-    //   ),
-    // );
-
-    // return AdaptiveTheme(
-    //   light: ThemeData.light(),
-    //   dark: theme,
-    //   initial: savedThemeMode ?? AdaptiveThemeMode.light,
-    //   builder: (theme, darkTheme) => MaterialApp(
-    //     // title: 'Adaptive Theme Demo',
-    //     theme: theme,
-    //     darkTheme: darkTheme,
-    //     home: MyHomePage(),
-    //   ),
-    // );
-    Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+    //Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     int categoryADelay = 0;
     int categoryBDelay = 3;
     int categoryCDelay = 10;
@@ -103,38 +79,26 @@ class _MainScreenState extends State<MainScreen> {
     int _selectedDestination = 0;
 //
     getSettings() async {
-      categoryADelay = await _prefs.then((SharedPreferences prefs) {
+      print("getSet");
+      categoryADelay = await widget.controller.prefs.then((SharedPreferences prefs) {
         return (prefs.getInt('CategoryADalay') ?? 0);
       });
-      categoryBDelay = await _prefs.then((SharedPreferences prefs) {
+      categoryBDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
         return (prefs.getInt('CategoryBDalay') ?? 3);
       });
-      categoryCDelay = await _prefs.then((SharedPreferences prefs) {
+      categoryCDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
         return (prefs.getInt('CategoryCDalay') ?? 10);
       });
-      categoryDDelay = await _prefs.then((SharedPreferences prefs) {
+      categoryDDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
         return (prefs.getInt('CategoryDDalay') ?? 120);
       });
     }
 
-    // Future<void> updateSettings(String category, int val) async {
-    //   final Future<SharedPreferences> prefs = _prefs;
-    //   prefs.then((value) {
-    //     print(value);
-    //     value.setInt(category, val);
-    //   });
-    //
-    //   Future.delayed(const Duration(milliseconds: 500), () {
-    //     setState(() {
-    //       // Here you can write your codeрпро for open new view
-    //     });
-    //   });
-    // }
 
     @override
     initState() {
       super.initState();
-      getSettings();
+      // getSettings();
 
       // _color = Theme.of(context).scaffoldBackgroundColor;
       myBanner = BannerAd(
@@ -160,6 +124,8 @@ class _MainScreenState extends State<MainScreen> {
     Widget build(BuildContext context) {
       _color = Theme.of(context).scaffoldBackgroundColor;
       print(" build(BuildContext context)");
+      getSettings();
+
       var newFormat = DateFormat("jm");
       newFormat = DateFormat("Hm");
 
@@ -210,7 +176,7 @@ class _MainScreenState extends State<MainScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () {
-                    widget.controller.updateSettings("CategoryADalay", categoryADelay);
+                    widget.controller.updateCategoryDelay("CategoryADalay", categoryADelay);
 
                   },
                 ),
@@ -232,7 +198,7 @@ class _MainScreenState extends State<MainScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () {
-                    widget.controller.updateSettings("CategoryBDalay", categoryBDelay);
+                    widget.controller.updateCategoryDelay("CategoryBDalay", categoryBDelay);
                   },
                 ),
                 title: TextFormField(
@@ -253,7 +219,7 @@ class _MainScreenState extends State<MainScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () {
-                    widget.controller.updateSettings("CategoryCDalay", categoryCDelay);
+                    widget.controller.updateCategoryDelay("CategoryCDalay", categoryCDelay);
                   },
                 ),
                 title: TextFormField(
@@ -274,7 +240,7 @@ class _MainScreenState extends State<MainScreen> {
                 trailing: IconButton(
                   icon: Icon(Icons.save),
                   onPressed: () {
-                    widget.controller.updateSettings("CategoryDDalay", categoryDDelay);
+                    widget.controller.updateCategoryDelay("CategoryDDalay", categoryDDelay);
                   },
                 ),
                 title: TextFormField(
@@ -404,7 +370,7 @@ class _MainScreenState extends State<MainScreen> {
             trailing: IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                widget.controller.updateSettings("CategoryADalay", categoryADelay);
+                widget.controller.updateCategoryDelay("CategoryADalay", categoryADelay);
 
               },
             ),
@@ -426,7 +392,7 @@ class _MainScreenState extends State<MainScreen> {
             trailing: IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                widget.controller.updateSettings("CategoryBDalay", categoryBDelay);
+                widget.controller.updateCategoryDelay("CategoryBDalay", categoryBDelay);
               },
             ),
             title: TextFormField(
@@ -447,7 +413,7 @@ class _MainScreenState extends State<MainScreen> {
             trailing: IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                widget.controller.updateSettings("CategoryCDalay", categoryCDelay);
+                widget.controller.updateCategoryDelay("CategoryCDalay", categoryCDelay);
               },
             ),
             title: TextFormField(
@@ -468,7 +434,7 @@ class _MainScreenState extends State<MainScreen> {
             trailing: IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                widget.controller.updateSettings("CategoryDDalay", categoryDDelay);
+                widget.controller.updateCategoryDelay("CategoryDDalay", categoryDDelay);
               },
             ),
             title: TextFormField(
