@@ -43,6 +43,12 @@ class SettingsController with ChangeNotifier {
     // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
+  Future<void> updateTimeFormat(String format) async {
+    _settingsService.updateTimeFormat(format);
+
+    // Important! Inform listeners a change has occurred.
+    notifyListeners();
+  }
 
 
 

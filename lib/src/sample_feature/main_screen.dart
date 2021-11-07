@@ -74,12 +74,14 @@ class _MainScreenState extends State<MainScreen> {
     late final AdWidget adWidget;
     late final BannerAd myBanner;
     late Color _color;
+     String foRmat = "Hm";
+
 
 
     int _selectedDestination = 0;
 //
     getSettings() async {
-      print("getSet");
+
       categoryADelay = await widget.controller.prefs.then((SharedPreferences prefs) {
         return (prefs.getInt('CategoryADalay') ?? 0);
       });
@@ -98,9 +100,6 @@ class _MainScreenState extends State<MainScreen> {
     @override
     initState() {
       super.initState();
-      // getSettings();
-
-      // _color = Theme.of(context).scaffoldBackgroundColor;
       myBanner = BannerAd(
         // adUnitId: 'ca-app-pub-3940256099942544/6300978111',
         // adUnitId: 'ca-app-pub-5030843222424346/3066642380',
@@ -123,11 +122,13 @@ class _MainScreenState extends State<MainScreen> {
     @override
     Widget build(BuildContext context) {
       _color = Theme.of(context).scaffoldBackgroundColor;
-      print(" build(BuildContext context)");
+
       getSettings();
 
-      var newFormat = DateFormat("jm");
-      newFormat = DateFormat("Hm");
+      getfoRmat();
+
+      var newFormat = DateFormat(foRmat);
+     // newFormat = DateFormat("Hm");
 
       dateNow =
           "${monthStrings[now.add(Duration(days: categoryADelay)).month]}  ${now.add(Duration(days: categoryADelay)).day}, ${now.add(Duration(days: categoryADelay)).year} at " +
@@ -279,6 +280,8 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             _character = value;
                           });
+
+                          widget.controller.updateTimeFormat("jm");
                         },
                       ),
                     ),
@@ -293,6 +296,7 @@ class _MainScreenState extends State<MainScreen> {
                           setState(() {
                             _character = value;
                           });
+                          widget.controller.updateTimeFormat("Hm");
                         },
                       ),
                     ),
@@ -343,159 +347,7 @@ class _MainScreenState extends State<MainScreen> {
       );
     }
 
-    ListView drawerMenu(TextTheme textTheme) {
-      return ListView(
-        // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 16),
-            child: Text(
-              'MEL calculator',
-              style: textTheme.headline6,
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Divider(
-            height: 1,
-            thickness: 1,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Customize categories',
-            ),
-          ),
-          ListTile(
-            trailing: IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                widget.controller.updateCategoryDelay("CategoryADalay", categoryADelay);
 
-              },
-            ),
-            title: TextFormField(
-              initialValue: categoryADelay.toString(),
-              keyboardType: TextInputType.number,
-              onChanged: (text) {
-                categoryADelay = int.parse(text);
-              },
-              decoration: InputDecoration(
-                labelText: 'Category A',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            // selected: _selectedDestination == 0,
-            //onTap: () => selectDestination(0),
-          ),
-          ListTile(
-            trailing: IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                widget.controller.updateCategoryDelay("CategoryBDalay", categoryBDelay);
-              },
-            ),
-            title: TextFormField(
-              initialValue: categoryBDelay.toString(),
-              keyboardType: TextInputType.number,
-              onChanged: (text) {
-                categoryBDelay = int.parse(text);
-              },
-              decoration: InputDecoration(
-                labelText: 'Category B',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            // selected: _selectedDestination == 0,
-            //onTap: () => selectDestination(0),
-          ),
-          ListTile(
-            trailing: IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                widget.controller.updateCategoryDelay("CategoryCDalay", categoryCDelay);
-              },
-            ),
-            title: TextFormField(
-              onChanged: (text) {
-                categoryCDelay = int.parse(text);
-              },
-              initialValue: categoryCDelay.toString(),
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Category C',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            // selected: _selectedDestination == 0,
-            //onTap: () => selectDestination(0),
-          ),
-          ListTile(
-            trailing: IconButton(
-              icon: Icon(Icons.save),
-              onPressed: () {
-                widget.controller.updateCategoryDelay("CategoryDDalay", categoryDDelay);
-              },
-            ),
-            title: TextFormField(
-              onChanged: (text) {
-                categoryDDelay = int.parse(text);
-              },
-              initialValue: categoryDDelay.toString(),
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Category D',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            // selected: _selectedDestination == 0,
-            //onTap: () => selectDestination(0),
-          ),
-          Divider(
-            height: 1,
-            thickness: 1,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Time format',
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: ListTile(
-                  title: const Text('12'),
-                  leading: Radio<TimeType>(
-                    value: TimeType.t12,
-                    groupValue: _character,
-                    onChanged: (TimeType? value) {
-                      setState(() {
-                        _character = value;
-                      });
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                child: ListTile(
-                  title: const Text('24'),
-                  leading: Radio<TimeType>(
-                    value: TimeType.t24,
-                    groupValue: _character,
-                    onChanged: (TimeType? value) {
-                      setState(() {
-                        _character = value;
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      );
-    }
 
     Stack infoForUser() {
       return Stack(
@@ -661,6 +513,19 @@ class _MainScreenState extends State<MainScreen> {
         ],
       );
     }
+
+    getfoRmat()  async {
+
+      foRmat = await  widget.controller.prefs.then((SharedPreferences prefs) {
+     if(prefs.getString('format')=='jm'){
+       _character = TimeType.t12;
+     }else{
+       _character = TimeType.t24;
+     }
+      return  (prefs.getString('format') ?? 'jm');
+    });
+
+  }
 
 
 }

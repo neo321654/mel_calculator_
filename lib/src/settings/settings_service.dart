@@ -23,6 +23,7 @@ class SettingsService {
         return ThemeMode.light;
     }
   }
+
   Future<SharedPreferences> getPref() async {
     return _prefs;
   }
@@ -53,6 +54,13 @@ class SettingsService {
     _prefs.then((value) {
       //print(value);
       value.setInt(category, val);
+    });
+  }
+
+  Future<void> updateTimeFormat(String format) async {
+    _prefs.then((value) {
+      //print(value);
+      value.setString("format", format);
     });
   }
 }
