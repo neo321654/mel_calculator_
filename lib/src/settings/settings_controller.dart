@@ -30,6 +30,14 @@ class SettingsController with ChangeNotifier {
     // Important! Inform listeners a change has occurred.
     notifyListeners();
   }
+  Future<void> updateSettings(category, val) async {
+    _settingsService.updateSettings(category, val);
+
+    // Important! Inform listeners a change has occurred.
+    notifyListeners();
+  }
+
+
 
   /// Update and persist the ThemeMode based on the user's selection.
   Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
