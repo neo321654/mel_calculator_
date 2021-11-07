@@ -61,7 +61,7 @@ class SampleItemListView extends StatelessWidget {
           final item = items[index];
 
           return ListTile(
-              title: Text('SampleItem ${item.id}'),
+              title: Text('SampleItem ${controller.themeMode}'),
               leading: const CircleAvatar(
 
                 // Display the Flutter Logo image asset.
