@@ -57,8 +57,30 @@ class MyApp extends StatelessWidget {
           // Define a light and dark color theme. Then, read the user's
           // preferred ThemeMode (light, dark, or system default) from the
           // SettingsController to display the correct theme.
+          // var theme = ThemeData.dark().copyWith(
+          //   radioTheme: ThemeData.dark().radioTheme.copyWith(
+          //     fillColor: MaterialStateProperty.resolveWith((states) {
+          //       if (!states.contains(MaterialState.disabled)) {
+          //         return Colors.blue;
+          //       } else {
+          //         return Colors.blue.withOpacity(.25);
+          //       }
+          //     }),
+          //   ),
+          // );
           theme: ThemeData(),
-          darkTheme: ThemeData.dark(),
+          //копирую тёмную тему чтобы изменить цвет радио кнопок
+          darkTheme: ThemeData.dark().copyWith(
+            radioTheme: ThemeData.dark().radioTheme.copyWith(
+              fillColor: MaterialStateProperty.resolveWith((states) {
+                if (!states.contains(MaterialState.disabled)) {
+                  return Colors.blue;
+                } else {
+                  return Colors.blue.withOpacity(.25);
+                }
+              }),
+            ),
+          ),
           themeMode: settingsController.themeMode,
 
           // Define a function to handle named routes in order to support
