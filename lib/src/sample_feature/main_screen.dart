@@ -303,23 +303,51 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ],
               ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                // Glue the SettingsController to the theme selection DropdownButton.
+                //
+                // When a user selects a theme from the dropdown list, the
+                // SettingsController is updated, which rebuilds the MaterialApp.
+                child: DropdownButton<ThemeMode>(
+                  // Read the selected themeMode from the controller
+                  value: widget.controller.themeMode,
+                  // Call the updateThemeMode method any time the user selects a theme.
+                  onChanged: widget.controller.updateThemeMode,
+                  items: const [
+                    DropdownMenuItem(
+                      value: ThemeMode.system,
+                      child: Text('System Theme'),
+                    ),
+                    DropdownMenuItem(
+                      value: ThemeMode.light,
+                      child: Text('Light Theme'),
+                    ),
+                    DropdownMenuItem(
+                      value: ThemeMode.dark,
+                      child: Text('Dark Theme'),
+                    )
+                  ],
+                ),
+              ),
             ],
+
           ),
         ),
         appBar: AppBar(
           centerTitle: true,
           title: Text('MEL calculator'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                // Navigate to the settings page. If the user leaves and returns
-                // to the app after it has been killed while running in the
-                // background, the navigation stack is restored.
-                Navigator.restorablePushNamed(context, SettingsView.routeName);
-              },
-            ),
-          ],
+          // actions: [
+          //   IconButton(
+          //     icon: const Icon(Icons.settings),
+          //     onPressed: () {
+          //       // Navigate to the settings page. If the user leaves and returns
+          //       // to the app after it has been killed while running in the
+          //       // background, the navigation stack is restored.
+          //       Navigator.restorablePushNamed(context, SettingsView.routeName);
+          //     },
+          //   ),
+          // ],
         ),
         body: SafeArea(
           child: SizedBox.expand(
@@ -338,7 +366,6 @@ class _MainScreenState extends State<MainScreen> {
                       ],
                     ),
                   ),
-                  themeButtons(context),
                 ],
               ),
             ),
@@ -477,39 +504,6 @@ class _MainScreenState extends State<MainScreen> {
                   style: TextStyle(fontSize: 12),
                 ),
               )),
-        ],
-      );
-    }
-
-    Row themeButtons(BuildContext context) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              // AdaptiveTheme.of(context).setDark();
-              // setState(() {
-              //   _color = AdaptiveTheme.of(context).theme.scaffoldBackgroundColor;
-              // });
-            },
-            style: ElevatedButton.styleFrom(
-              visualDensity: VisualDensity(horizontal: 4, vertical: 2),
-            ),
-            child: Text('Dark theme'),
-          ),
-          SizedBox(width: 8),
-          ElevatedButton(
-            onPressed: () {
-              // AdaptiveTheme.of(context).setLight();
-              // setState(() {
-              //   _color = AdaptiveTheme.of(context).theme.scaffoldBackgroundColor;
-              // });
-            },
-            child: Text('Light theme'),
-            style: ElevatedButton.styleFrom(
-              visualDensity: VisualDensity(horizontal: 4, vertical: 2),
-            ),
-          ),
         ],
       );
     }
