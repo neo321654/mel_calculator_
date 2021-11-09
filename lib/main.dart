@@ -8,10 +8,11 @@ void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   //строка ниже помогает убрать ошибку подгрузки
-  //todo сделать заставку желательно адаптивную
+  //todo сделать заставку без букв только лейбл
   //todo сделать ярлыки для айос и андроид и поменять название для айсос
   //todo убрать лишние экраны и сделать возможность убрать рекламу для димки и связать её с shared pref
-
+  //todo благодарности написать в о приложении , там же сделать убрать рекламу
+//
 
   WidgetsFlutterBinding.ensureInitialized();
 
