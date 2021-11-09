@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsService {
   /// Loads the User's preferred ThemeMode from local or remote storage.
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
   late final oldThemeMode = _prefs.then((SharedPreferences prefs) {
     return (prefs.getString('ThemeMode') ?? 'dark');
   });

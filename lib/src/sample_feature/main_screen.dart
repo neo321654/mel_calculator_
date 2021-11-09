@@ -80,20 +80,16 @@ class _MainScreenState extends State<MainScreen> {
 
     int _selectedDestination = 0;
 //
-    getSettings() async {
+    getSettings() {
 
-      categoryADelay = await widget.controller.prefs.then((SharedPreferences prefs) {
-        return (prefs.getInt('CategoryADalay') ?? 0);
-      });
-      categoryBDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
-        return (prefs.getInt('CategoryBDalay') ?? 3);
-      });
-      categoryCDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
-        return (prefs.getInt('CategoryCDalay') ?? 10);
-      });
-      categoryDDelay = await widget.controller.prefs.then((SharedPreferences prefs) {
-        return (prefs.getInt('CategoryDDalay') ?? 120);
-      });
+      categoryADelay =  widget.controller.prefs.getInt('CategoryADalay') ?? 0;
+
+      categoryBDelay =  widget.controller.prefs.getInt('CategoryBDalay') ?? 3;
+
+      categoryCDelay =  widget.controller.prefs.getInt('CategoryCDalay') ?? 10;
+
+      categoryDDelay =  widget.controller.prefs.getInt('CategoryDDalay') ?? 120;
+
     }
 
 
@@ -510,14 +506,13 @@ class _MainScreenState extends State<MainScreen> {
 
     getfoRmat()  async {
 
-      foRmat = await  widget.controller.prefs.then((SharedPreferences prefs) {
-     if(prefs.getString('format')=='jm'){
+        if(widget.controller.prefs.getString('format')=='jm'){
        _character = TimeType.t12;
      }else{
        _character = TimeType.t24;
      }
-      return  (prefs.getString('format') ?? 'jm');
-    });
+        foRmat =  (widget.controller.prefs.getString('format') ?? 'jm');
+
 
   }
 
