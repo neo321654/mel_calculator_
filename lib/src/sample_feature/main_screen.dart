@@ -35,7 +35,7 @@ class _MainScreenState extends State<MainScreen> {
     String dateNowPlus10 = "";
     String dateNowPlus120 = "";
 
-    TimeType? _character = TimeType.t12;
+    TimeType? _character = TimeType.t24;
 
     var monthStrings = [
       '',
@@ -504,14 +504,15 @@ class _MainScreenState extends State<MainScreen> {
       );
     }
 
-    getfoRmat()  async {
+    getfoRmat() {
 
-        if(widget.controller.prefs.getString('format')=='jm'){
+        if(widget.controller.prefs.getString('format')=='jm')
+        {
        _character = TimeType.t12;
      }else{
        _character = TimeType.t24;
      }
-        foRmat =  (widget.controller.prefs.getString('format') ?? 'jm');
+        foRmat =  (widget.controller.prefs.getString('format') ?? 'Hm');
 
 
   }

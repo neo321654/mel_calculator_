@@ -8,7 +8,11 @@ void main() async {
   // Set up the SettingsController, which will glue user settings to multiple
   // Flutter Widgets.
   //строка ниже помогает убрать ошибку подгрузки
-  //todo не сохраняются новые даты в настройках
+  //todo сделать заставку желательно адаптивную
+  //todo сделать ярлыки для айос и андроид и поменять название для айсос
+  //todo убрать лишние экраны и сделать возможность убрать рекламу для димки и связать её с shared pref
+
+
   WidgetsFlutterBinding.ensureInitialized();
 
   final settingsController = SettingsController(SettingsService());
